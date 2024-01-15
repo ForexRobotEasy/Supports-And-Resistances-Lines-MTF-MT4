@@ -1,0 +1,96 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                           Supports And Resistances Lines MTF MT4 |
+//|                                      Developer's website - forexroboteasy.com |
+//|                                          Developed by - Forex Robot Easy Team |
+//|                                                    Version: 1.0         |
+//+------------------------------------------------------------------+
+
+#property strict
+
+// Input parameters
+input int timeframe1 = PERIOD_M1;
+input int timeframe2 = PERIOD_M5;
+input int timeframe3 = PERIOD_M15;
+
+input color supportLineColor = clrGreen;
+input color resistanceLineColor = clrRed;
+input ENUM_LINE_STYLE lineStyle = STYLE_SOLID;
+input int lineThickness = 1;
+
+// Support and resistance line drawing function
+void DrawSupportAndResistanceLines()
+{
+   // Clear previous lines
+   ObjectsDeleteAll(0, OBJ_TREND);
+
+   // Draw support and resistance lines for timeframe1
+   double supportLevel1 = CalculateSupportLevel(timeframe1);
+   double resistanceLevel1 = CalculateResistanceLevel(timeframe1);
+   DrawLine(supportLevel1, supportLineColor);
+   DrawLine(resistanceLevel1, resistanceLineColor);
+
+   // Draw support and resistance lines for timeframe2
+   double supportLevel2 = CalculateSupportLevel(timeframe2);
+   double resistanceLevel2 = CalculateResistanceLevel(timeframe2);
+   DrawLine(supportLevel2, supportLineColor);
+   DrawLine(resistanceLevel2, resistanceLineColor);
+
+   // Draw support and resistance lines for timeframe3
+   double supportLevel3 = CalculateSupportLevel(timeframe3);
+   double resistanceLevel3 = CalculateResistanceLevel(timeframe3);
+   DrawLine(supportLevel3, supportLineColor);
+   DrawLine(resistanceLevel3, resistanceLineColor);
+}
+
+// Calculate support level for the specified timeframe
+double CalculateSupportLevel(int timeframe)
+{
+   // Perform necessary calculations and return support level
+}
+
+// Calculate resistance level for the specified timeframe
+double CalculateResistanceLevel(int timeframe)
+{
+   // Perform necessary calculations and return resistance level
+}
+
+// Draw a support or resistance line on the chart
+void DrawLine(double level, color lineColor)
+{
+   // Perform necessary operations to draw a line on the chart
+   ObjectCreate(0, 'SupportResistanceLine', OBJ_TREND, 0, 0, 0, 0);
+   ObjectSetInteger(0, 'SupportResistanceLine', OBJPROP_STYLE, lineStyle);
+   ObjectSetInteger(0, 'SupportResistanceLine', OBJPROP_WIDTH, lineThickness);
+   ObjectSetInteger(0, 'SupportResistanceLine', OBJPROP_COLOR, lineColor);
+   ObjectSetDouble(0, 'SupportResistanceLine', OBJPROP_PRICE1, level);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Initialize the indicator
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+   // Calculate and draw support and resistance lines
+   DrawSupportAndResistanceLines();
+
+   return(rates_total);
+}
